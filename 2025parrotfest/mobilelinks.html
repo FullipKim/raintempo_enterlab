@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2025 앵페스타 링크 모음</title>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Pretendard Variable', sans-serif;
+      background-color: #f8f8f8;
+      color: #111;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 480px;
+      width: 100%;
+      padding: 40px 20px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #7b1e3b;
+    }
+
+    p.subtitle {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 24px;
+    }
+
+    .poster-button {
+      display: inline-block;
+      padding: 10px 20px;
+      border: 2px solid #7b1e3b;
+      border-radius: 999px;
+      color: #7b1e3b;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 14px;
+      margin-bottom: 32px;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .poster-button:hover {
+      background-color: #7b1e3b;
+      color: #fff;
+    }
+
+    .link-button {
+      display: block;
+      background-color: #7b1e3b;
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 16px;
+      margin-bottom: 16px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      transition: all 0.2s ease-in-out;
+    }
+
+    .link-button:hover {
+      background-color: #631933;
+    }
+
+    .footer {
+      font-size: 12px;
+      color: #aaa;
+      margin-top: 40px;
+    }
+
+    .footer a {
+      color: inherit;
+      text-decoration: underline;
+    }
+
+    /* 모달 스타일 */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      position: relative;
+      max-width: 90%;
+      max-height: 80%;
+      background-color: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .modal-content img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      cursor: pointer;
+    }
+
+    .close-btn:hover {
+      color: #7b1e3b;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>2025 앵페스타</h1>
+    <p class="subtitle">행사 관련 주요 링크를 확인하세요</p>
+
+    <a href="#" class="poster-button" id="openModal">포스터 보기🦜</a>
+
+    <a href="https://cafe.naver.com/parrotfesta" class="link-button" target="_blank">앵페스타 네이버카페</a>
+    <a href="https://booking.naver.com/booking/5/bizes/1173043" class="link-button" target="_blank">사전예약 바로가기</a>
+    <a href="http://map.naver.com/p/entry/place/1199638275" class="link-button" target="_blank">오시는 길</a>
+    <a href="https://instagram.com/parrot_festa" class="link-button" target="_blank">앵페스타 인스타그램</a>
+
+    <div class="footer">
+      © 2025 앵페스타. All rights reserved.<br />
+      Design by <a href="https://raintempolab.kr" target="_blank">레인템포랩</a>
+    </div>
+  </div>
+
+  <!-- 모달 -->
+  <div class="modal" id="posterModal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal">&times;</span>
+      <img src="poster.png" alt="앵페스타 포스터" />
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById("posterModal");
+    const openBtn = document.getElementById("openModal");
+    const closeBtn = document.getElementById("closeModal");
+
+    openBtn.addEventListener("click", function(e) {
+      e.preventDefault();
+      modal.style.display = "flex";
+    });
+
+    closeBtn.addEventListener("click", function() {
+      modal.style.display = "none";
+    });
+
+    window.addEventListener("click", function(e) {
+      if (e.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>
