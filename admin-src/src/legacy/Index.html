@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<base target="_top">
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<?!= include('Styles'); ?>
+</head>
+<body>
+
+<!-- 로그인 -->
+<section id="login" hidden>
+  <div class="card" id="login-form">
+    <div class="brand"><i></i>레인템포랩 <small>콘텐츠 제작</small></div>
+    <h1>접속코드를 입력해주세요</h1>
+    <p class="muted">대표님께 받은 개인 접속코드로 들어옵니다.</p>
+    <input type="password" id="login-code" placeholder="RT-XXXXXXXX" autocomplete="off" style="margin-top:16px">
+    <button type="button" class="b pri" id="login-btn" style="width:100%;justify-content:center;margin-top:10px;height:42px">들어가기</button>
+    <p class="muted" id="login-err" style="color:var(--bad);margin-top:10px" hidden></p>
+  </div>
+</section>
+
+<!-- 앱 -->
+<div id="app" hidden>
+  <header class="top"><div class="top-in">
+    <div class="brand" id="go-home"><i></i>레인템포랩</div>
+    <nav class="seg" id="nav"><button data-v="content" class="on">콘텐츠 제작</button><button data-v="report">월간 보고</button><button data-v="subs">구독사</button></nav>
+    <div class="sp"></div>
+    <a class="b sm ghost" id="open-sheet" target="_blank" rel="noopener" hidden>운영 시트 열기</a>
+    <span class="who" id="who"></span>
+    <button class="b sm ghost" id="logout">나가기</button>
+  </div></header>
+  <main id="view"></main>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- 일정 추가 -->
+<dialog id="dlg-new">
+  <div id="new-form">
+    <div class="dh">일정 추가</div>
+    <div class="db">
+      <div class="seg" id="new-mode" style="margin-bottom:14px"><button type="button" class="on" data-m="one">한 건</button><button type="button" data-m="bulk">한 달 일괄</button></div>
+      <div class="grid g2">
+        <label class="f"><span>고객사</span><select name="client"></select></label>
+        <label class="f"><span>담당자</span><select name="owner"></select></label>
+      </div>
+      <div data-m="one" class="grid g2" style="margin-top:12px">
+        <label class="f"><span>발행일</span><input type="date" name="date"></label>
+        <label class="f"><span>종류</span><select name="kind"><option value="basic">일반 정보글</option><option value="event">경제지표·시의성</option><option value="article">홈페이지 아티클</option><option value="project">홈페이지 프로젝트</option></select></label>
+        <label class="f" style="grid-column:1/-1"><span>주제 (나중에 정해도 됩니다)</span><input type="text" name="title" placeholder="예: MT5에서 차트 시간 단위 바꾸는 법"></label>
+      </div>
+      <div data-m="bulk" hidden style="margin-top:12px">
+        <div class="grid g2">
+          <label class="f"><span>월</span><input type="month" name="month"></label>
+          <div class="f"><span>발행 요일</span><div class="wd" id="wd"></div></div>
+          <label class="f"><span>종류</span><select name="bkind"><option value="basic">일반 정보글</option><option value="article">홈페이지 아티클</option><option value="project">홈페이지 프로젝트</option></select></label>
+        </div>
+        <label class="f" style="margin-top:12px"><span>주제 목록 · 한 줄에 하나 (비워두면 주제 미정으로 등록)</span><textarea name="topics" rows="4" placeholder="MT5 설치 방법&#10;손절 설정하는 법"></textarea></label>
+        <div class="muted" style="margin-top:10px" id="bulk-sum"></div>
+        <div class="bulk-list" id="bulk-list"></div>
+      </div>
+    </div>
+    <div class="df"><button type="button" class="b" data-close="cancel">취소</button><button type="button" class="b pri" id="new-ok" data-close="ok">등록</button></div>
+  </div>
+</dialog>
+
+<!-- 월간 Canva 대량 제작 파일 -->
+<dialog id="dlg-csv">
+  <div>
+    <div class="dh">Canva 대량 제작 파일 (한 달 치)</div>
+    <div class="db">
+      <p class="muted">Canva 대량 제작은 <b>파일의 한 행이 디자인 한 개</b>가 됩니다. 그래서 파일에는 제목과 본문 열만 넣습니다.</p>
+      <div class="grid g2" style="margin-top:12px">
+        <label class="f"><span>고객사</span><select id="csv-client"></select></label>
+        <label class="f"><span>만드는 방식</span><select id="csv-mode">
+          <option value="set">세트: 글 1편 = 디자인 1개 (여러 페이지 템플릿)</option>
+          <option value="single">한 장: 이미지 1장 = 디자인 1개 (한 페이지 템플릿)</option></select></label>
+        <label class="f" id="csv-type-wrap" hidden><span>페이지 유형</span><select id="csv-type"></select></label>
+      </div>
+      <p class="muted" id="csv-sum" style="margin-top:10px;white-space:pre-line"></p>
+    </div>
+    <div class="df"><button type="button" class="b" data-close="cancel">닫기</button><button class="b" type="button" id="csv-go">CSV</button><button class="b pri" type="button" id="xlsx-go">엑셀 받기 (줄바꿈 유지)</button></div>
+  </div>
+</dialog>
+
+<!-- 확인 -->
+<dialog id="dlg-confirm">
+  <div>
+    <div class="dh" id="cf-title"></div>
+    <div class="db" id="cf-body"></div>
+    <div class="df"><button type="button" class="b" data-close="cancel">취소</button><button type="button" class="b pri" data-close="ok" id="cf-ok">확인</button></div>
+  </div>
+</dialog>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+<?!= include('Profiles'); ?>
+<?!= include('Cards'); ?>
+<?!= include('App'); ?>
+</body>
+</html>
